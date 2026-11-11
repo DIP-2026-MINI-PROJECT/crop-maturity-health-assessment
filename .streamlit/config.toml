@@ -1,0 +1,10 @@
+# CropVision theme ("Aurora"). Native Streamlit widgets read these values;
+# the custom CSS in src/ui/styles.py handles everything else.
+[theme]
+base = "dark"
+primaryColor = "#2DD4BF"
+backgroundColor = "#060B18"
+secondaryBackgroundColor = "#111C33"
+textColor = "#E6F0FF"
+font = "Manrope:https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap"
+headingFont = "Syne:https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&display=swap"

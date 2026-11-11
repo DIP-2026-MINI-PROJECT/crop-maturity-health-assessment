@@ -1,0 +1,129 @@
+{
+  "version": 7,
+  "ok": true,
+  "stages": [
+    {
+      "key": "original",
+      "title": "Original",
+      "operation": "Uploaded image, converted to 3-channel RGB",
+      "input": "",
+      "file": "01_original.png",
+      "change": "",
+      "change_note": ""
+    },
+    {
+      "key": "resized",
+      "title": "Resized",
+      "operation": "Sampling: bilinear resize, longest side 512 px",
+      "input": "original",
+      "file": "02_resized.png",
+      "change": "",
+      "change_note": ""
+    },
+    {
+      "key": "denoised",
+      "title": "Denoised",
+      "operation": "3x3 median filter on each colour channel",
+      "input": "resized",
+      "file": "03_denoised.png",
+      "change": "03_denoised_change.png",
+      "change_note": "39.5% of pixels changed, mean change 0.4 grey levels"
+    },
+    {
+      "key": "enhanced",
+      "title": "Contrast enhanced",
+      "operation": "Histogram equalisation of the V channel (HSV)",
+      "input": "denoised",
+      "file": "04_enhanced.png",
+      "change": "04_enhanced_change.png",
+      "change_note": "42.7% of pixels changed, mean change 66.1 grey levels"
+    },
+    {
+      "key": "clusters",
+      "title": "K-means clusters",
+      "operation": "k-means (k = 4) on a*, b* and distance from the centre",
+      "input": "enhanced",
+      "file": "05_clusters.png",
+      "change": "",
+      "change_note": ""
+    },
+    {
+      "key": "initial_mask",
+      "title": "Initial mask",
+      "operation": "Plain background: clusters that are not border background or shadow, holes filled, largest region kept",
+      "input": "clusters",
+      "file": "06_initial_mask.png",
+      "change": "",
+      "change_note": ""
+    },
+    {
+      "key": "active_contour",
+      "title": "Active contour",
+      "operation": "Chan-Vese active contour, 100 iterations on L*a*b*",
+      "input": "initial_mask",
+      "file": "07_active_contour.png",
+      "change": "07_active_contour_change.png",
+      "change_note": "0.1% of pixels added, 1.6% removed"
+    },
+    {
+      "key": "mask",
+      "title": "Final mask",
+      "operation": "Opening, closing, hole filling, large opening (removes stems), largest region kept",
+      "input": "active_contour",
+      "file": "08_mask.png",
+      "change": "08_mask_change.png",
+      "change_note": "0.1% of pixels added, 0.4% removed"
+    },
+    {
+      "key": "segmented",
+      "title": "Segmented fruit",
+      "operation": "Final mask applied to the enhanced image, background set to black",
+      "input": "mask",
+      "file": "09_segmented.png",
+      "change": "09_segmented_change.png",
+      "change_note": "80.3% of pixels changed, mean change 157.2 grey levels"
+    }
+  ],
+  "images": {
+    "original": "01_original.png",
+    "resized": "02_resized.png",
+    "denoised": "03_denoised.png",
+    "enhanced": "04_enhanced.png",
+    "clusters": "05_clusters.png",
+    "initial_mask": "06_initial_mask.png",
+    "active_contour": "07_active_contour.png",
+    "mask": "08_mask.png",
+    "segmented": "09_segmented.png"
+  },
+  "features": {
+    "mean_L": 10.049025614930013,
+    "std_L": 5.50751365477827,
+    "mean_a": 0.39618737280661226,
+    "std_a": 1.6137623467069626,
+    "mean_b": 9.428352453846113,
+    "std_b": 5.35433037722704,
+    "mean_S": 0.64095465087048942,
+    "std_S": 0.10705886832819378,
+    "mean_V": 0.1269037904736047,
+    "std_V": 0.06070304056243328,
+    "frac_green": 0,
+    "frac_yellow": 0.9390518481456,
+    "frac_red": 0.054130965038463943,
+    "mean_entropy": 2.626694644548881,
+    "glcm_contrast": 0.25723173032420665,
+    "glcm_homogeneity": 0.90366009068611808,
+    "glcm_energy": 0.16951307293853113,
+    "area_fraction": 0.18262289839181287,
+    "eccentricity": 0.615047374671188,
+    "solidity": 0.97586133235680061,
+    "extent": 0.75090405297515617,
+    "dft_low": 0.75666796448296736,
+    "dft_mid": 0.13433025381509728,
+    "dft_high": 0.10900178170193635
+  },
+  "maturity": {
+    "stage": "ripe",
+    "confidence": 55.746771895247583,
+    "source": "model"
+  }
+}
