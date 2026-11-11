@@ -131,3 +131,5 @@ These samples come from the training datasets, so they demonstrate the pipeline 
 - Future work: ground-truth masks to measure segmentation accuracy, a field-collected ripeness dataset, and CNN features (e.g. ResNet-18) compared against the classical features.
 
 More detail on the leaf pipeline: [docs/LEAF_PIPELINE.md](docs/LEAF_PIPELINE.md).
+
+Course: UE24EC342AC1 Digital Image Processing, PES University, Aug-Dec 2026.
